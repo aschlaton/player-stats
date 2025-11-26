@@ -4,3 +4,6 @@
 [submodule "database"]
 	path = database
 	url = https://github.com/aschlaton/player-stats-db.git
+[submodule "backend"]
+	path = backend
+	url = https://github.com/aschlaton/player-stats-backend.git
