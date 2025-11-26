@@ -1,3 +1,6 @@
 [submodule "scraping"]
 	path = scraping
 	url = https://github.com/aschlaton/player-stats-scraping.git
+[submodule "database"]
+	path = database
+	url = https://github.com/aschlaton/player-stats-db.git
