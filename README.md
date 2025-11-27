@@ -14,67 +14,58 @@ cp .env.example .env
 
 ## Running Services
 
-All commands should be run from the `player-stats` root directory to ensure the `.env` file is properly loaded.
+All commands should be run from the `player-stats` root directory.
 
-### Database
+### Start All Services
 
-Start the PostgreSQL database:
 ```bash
-docker-compose -f database/docker-compose.yml up -d
+make up
 ```
 
-Check database status:
+### Stop All Services
+
 ```bash
-docker ps --filter "name=player-stats-db"
+make down
 ```
 
-### Scraping Service
+### Restart All Services
 
-Start the NBA data scraper (runs daily at 5:00 AM EST):
 ```bash
-docker-compose -f scraping/docker-compose.yml up -d
+make restart
 ```
 
-Manual backfill example:
+### Individual Services
+
+Start/stop/restart individual services:
+
 ```bash
-docker exec -it player-stats-scraper cargo run --bin backfill 2023-24 2023-24
+# Database
+make up.database
+make down.database
+make restart.database
+
+# Scraping
+make up.scraping
+make down.scraping
+make restart.scraping
+
+# Backend
+make up.backend
+make down.backend
+make restart.backend
 ```
 
-### backend
+### Accessing the API
 
-Start the backend:
-```bash
-docker-compose -f backend/docker-compose.yml up -d --build
-```
-
-Access the API:
+Once the backend is running:
 - API endpoint: http://localhost:3000/api/boxscores/count
 - Filter endpoint: http://localhost:3000/api/boxscores/filter
 - Swagger docs: http://localhost:3000/docs
 
-## Starting All Services
+### Manual Data Backfill
 
-Start everything at once:
 ```bash
-docker-compose -f database/docker-compose.yml up -d && \
-docker-compose -f scraping/docker-compose.yml up -d && \
-docker-compose -f backend/docker-compose.yml up -d --build
-```
-
-## Stopping Services
-
-Stop individual services:
-```bash
-docker-compose -f database/docker-compose.yml down
-docker-compose -f scraping/docker-compose.yml down
-docker-compose -f backend/docker-compose.yml down
-```
-
-Stop all:
-```bash
-docker-compose -f database/docker-compose.yml down && \
-docker-compose -f scraping/docker-compose.yml down && \
-docker-compose -f backend/docker-compose.yml down
+docker exec -it player-stats-scraper cargo run --bin backfill 2023-24 2023-24
 ```
 
 ## Viewing Logs
