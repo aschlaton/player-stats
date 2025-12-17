@@ -7,3 +7,6 @@
 [submodule "backend"]
 	path = backend
 	url = https://github.com/aschlaton/player-stats-backend.git
+[submodule "frontend"]
+	path = frontend
+	url = https://github.com/aschlaton/player-stats-frontend.git
